@@ -1,0 +1,6 @@
+/node_modules
+/target 
+/resources/public/js
+.shadow-cljs
+.nrepl-port
+package-lock.json
