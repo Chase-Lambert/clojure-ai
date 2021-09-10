@@ -1,4 +1,7 @@
 {:paths ["src/backend" "resources"]
+
+ :deps {metosin/reitit {:mvn/version "0.5.15"}
+        ring/ring {:mvn/version "1.9.4"}}
  
  :aliases {:uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.297"}}
                      :exec-fn hf.depstar/uberjar
