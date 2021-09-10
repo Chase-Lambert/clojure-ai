@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 npm install
 npx shadow-cljs release app
-clojure -X:uberjar :jar ai.jar
+clojure -A:uberjar :jar ai.jar
