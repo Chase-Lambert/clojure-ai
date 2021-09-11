@@ -1,5 +1,6 @@
 (ns ai.core
   (:require [clojure.java.io :as io]
+            [environ.core :refer [env]]
             [muuntaja.middleware :as muuntaja]
             [reitit.ring :as ring]
             [ring.adapter.jetty :as jetty]
@@ -51,6 +52,6 @@
         wrap-nocache 
         wrap-formats
         wrap-reload) 
-    {:port 8910 
+    {:port (or (env :port) 8910) 
      :join? false}))
   
