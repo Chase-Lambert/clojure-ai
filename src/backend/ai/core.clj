@@ -52,6 +52,6 @@
         wrap-nocache 
         wrap-formats
         wrap-reload) 
-    {:port (or (env :port) 8910) 
+    {:port (or (Integer/parseInt (env :port)) 8910) 
      :join? false}))
   
