@@ -7,23 +7,51 @@
             [ring.util.http-response :as response])
   (:gen-class))
 
-(defn handler [request-map]
-  {:status 200 
-   :headers {"Content-type" "text/html"}
-   :body (str "<html><body> your IP is: "
-              (:remote-addr request-map)
-              "</body></html")})
+(defn html-handler [request-map]
+  (response/ok
+   (str "<html><body> your IP is: "
+        (:remote-addr request-map)
+        "</body></html")))
 
-(defn index-handler [_]
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body (slurp (io/resource "public/index.html"))})
+(defn json-handler [request]
+  (response/ok
+    {:result (get-in request [:body-params :id])}))
 
-(def app 
+(defn wrap-nocache [handler]
+  (fn [request]
+    (-> request
+        handler
+        (assoc-in [:headers "Pragma"] "no-cache"))))
+
+(defn wrap-formats [handler]
+  (-> handler
+      (muuntaja/wrap-format)))
+
+(def routes
+  [["/" {:get html-handler}]])
+
+(def handler 
   (ring/ring-handler
-    (ring/router
-      [["/"] {:get index-handler}])))
+    (ring/router routes)))
+
+;; (defn index-handler [_]
+;;   {:status 200
+;;    :headers {"Content-Type" "text/html"}
+;;    :body (slurp (io/resource "public/index.html"))})
+
+
+
+;; (def app 
+;;   (ring/ring-handler
+;;     (ring/router
+;;       [["/"] {:get index-handler}])))
 
 (defn -main [& _]
-  (jetty/run-jetty handler {:port 8910 :join? false}))
+  (jetty/run-jetty 
+    (-> #'handler 
+        wrap-nocache 
+        wrap-formats
+        wrap-reload) 
+    {:port 8910 
+     :join? false}))
   
