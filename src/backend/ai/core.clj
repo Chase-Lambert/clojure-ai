@@ -23,9 +23,11 @@
    (slurp (io/resource "index.html"))))
 
 (def app 
-  (ring/ring-handler
-    (ring/router
-      [["/"] {:get index-handler}])))
+  (ring/routes
+    (ring/ring-handler
+      (ring/router
+        [["/" {:get index-handler}]]))
+    (ring/create-file-handler {:path "/"})))
 
 (defn -main [& _]
   (jetty/run-jetty 
