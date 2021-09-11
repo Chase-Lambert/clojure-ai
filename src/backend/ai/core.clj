@@ -52,6 +52,6 @@
         wrap-nocache 
         wrap-formats
         wrap-reload) 
-    {:port 8910 
+    {:port 3000 
      :join? false}))
   
