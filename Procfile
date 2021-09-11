@@ -1,1 +1,1 @@
-web: java -cp ai.jar clj -M -m ai.core
+web: java -cp ai.jar clojure.main -m ai.core

@@ -4,8 +4,7 @@
             [reitit.ring :as ring]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.reload :refer [wrap-reload]]
-            [ring.util.http-response :as response])
-  (:gen-class))
+            [ring.util.http-response :as response]))
 
 (defn html-handler [request-map]
   (response/ok
@@ -52,6 +51,6 @@
         wrap-nocache 
         wrap-formats
         wrap-reload) 
-    {:port 3000 
+    {:port 8910 
      :join? false}))
   
