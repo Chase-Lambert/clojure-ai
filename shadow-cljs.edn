@@ -1,4 +1,4 @@
-{:source-paths ["src/frontend" "resources"]
+{:source-paths ["src/frontend"]
  
  :dependencies [[binaryage/devtools "1.0.3"]
                 [cider/cider-nrepl "0.26.0"]
@@ -8,12 +8,11 @@
  :nrepl {:port 3333}
 
  :builds {:app {:target :browser
-                :output-dir "resources/public/js"
+                :output-dir "public/js"
                 :asset-path "/js"
                 :modules {:main {:entries [ai.core]}}
                 :devtools {:after-load ai.core/main
-                           :http-root "resources/public"
-                           :http-port 3000
-                           :repl-pprint true}
+                           :http-root "public"
+                           :http-port 3000}
                 :release {:compiler-options {:optimizations :advanced}}}}}
  

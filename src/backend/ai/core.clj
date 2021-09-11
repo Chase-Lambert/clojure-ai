@@ -5,17 +5,8 @@
             [reitit.ring :as ring]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.reload :refer [wrap-reload]]
-            [ring.util.http-response :as response]))
-
-(defn html-handler [request-map]
-  (response/ok
-   (str "<html><body> your IP is: "
-        (:remote-addr request-map)
-        "</body></html")))
-
-(defn json-handler [request]
-  (response/ok
-    {:result (get-in request [:body-params :id])}))
+            [ring.util.http-response :as response])
+  (:gen-class))
 
 (defn wrap-nocache [handler]
   (fn [request]
@@ -28,31 +19,19 @@
       (muuntaja/wrap-format)))
 
 (defn index-handler [_]
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body (slurp (io/resource "public/index.html"))})
+  (response/ok
+   (slurp (io/resource "index.html"))))
 
-
-(def routes
-  [["/" {:get index-handler}]])
-
-(def handler 
+(def app 
   (ring/ring-handler
-    (ring/router routes)))
-
-
-
-;; (def app 
-;;   (ring/ring-handler
-;;     (ring/router
-;;       [["/"] {:get index-handler}])))
+    (ring/router
+      [["/"] {:get index-handler}])))
 
 (defn -main [& _]
   (jetty/run-jetty 
-    (-> #'handler 
+    (-> #'app 
         wrap-nocache 
         wrap-formats
         wrap-reload) 
-    {:port (or (Integer/parseInt (env :port)) 8910) 
+    {:port (if (env :port) (Integer/parseInt (env :port)) 8910)
      :join? false}))
-  
