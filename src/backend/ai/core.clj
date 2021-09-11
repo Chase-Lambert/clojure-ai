@@ -27,17 +27,18 @@
   (-> handler
       (muuntaja/wrap-format)))
 
+(defn index-handler [_]
+  {:status 200
+   :headers {"Content-Type" "text/html"}
+   :body (slurp (io/resource "public/index.html"))})
+
+
 (def routes
-  [["/" {:get html-handler}]])
+  [["/" {:get index-handler}]])
 
 (def handler 
   (ring/ring-handler
     (ring/router routes)))
-
-;; (defn index-handler [_]
-;;   {:status 200
-;;    :headers {"Content-Type" "text/html"}
-;;    :body (slurp (io/resource "public/index.html"))})
 
 
 
