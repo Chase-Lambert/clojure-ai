@@ -20,14 +20,14 @@
 
 (defn index-handler [_]
   (response/ok
-   (slurp (io/resource "index.html"))))
+   (slurp (io/resource "public/index.html"))))
 
 (def app 
   (ring/routes
     (ring/ring-handler
       (ring/router
         [["/" {:get index-handler}]]))
-    (ring/create-file-handler {:path "/"})))
+    (ring/create-file-handler {:path "/" :root "resources/public"})))
 
 (defn -main [& _]
   (jetty/run-jetty 

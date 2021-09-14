@@ -1,4 +1,4 @@
-{:paths ["src/backend" "public"]
+{:paths ["src/backend" "resources"]
 
  :deps {environ/environ {:mvn/version "1.2.0"}
         metosin/muuntaja {:mvn/version "0.6.8"}
