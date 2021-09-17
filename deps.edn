@@ -1,6 +1,7 @@
 {:paths ["src/backend" "resources"]
 
  :deps {org.clojure/clojure {:mvn/version "1.11.0-alpha2"}
+        aero/aero {:mvn/version "1.1.6"}
         com.github.seancorfield/next.jdbc      {:mvn/version "1.2.709"}
         com.layerware/hugsql-adapter-next-jdbc {:mvn/version "0.5.1"}
         com.layerware/hugsql-core {:mvn/version "0.5.1"}

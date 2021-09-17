@@ -1,5 +1,9 @@
-(ns ai.db)
-  ;; (:require [next.jdbc :as jdbc]))
+(ns ai.db
+  (:require [aero.core :as aero] 
+            [clojure.java.io :as io]
+            [next.jdbc :as jdbc]))
+
+(def config (aero/read-config (io/resource "config.edn")))
 
 ;; (def ds
   ;; (jdbc/get-datasource 

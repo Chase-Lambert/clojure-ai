@@ -1,11 +1,14 @@
 (ns ai.core
-  (:require [clojure.java.io :as io]
+  (:require [aero.core :as aero]
+            [clojure.java.io :as io]
             [muuntaja.middleware :as muuntaja]
             [reitit.ring :as ring]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.reload :refer [wrap-reload]]
             [ring.util.http-response :as response])
   (:gen-class))
+
+(def config (aero/read-config (io/resource "config.edn")))
 
 (defn wrap-nocache [handler]
   (fn [request]
@@ -34,5 +37,5 @@
         wrap-nocache 
         wrap-formats
         wrap-reload) 
-    {:port (if (System/getenv "PORT") (Integer/parseInt (System/getenv "PORT")) 8910)
+    {:port (:port config)
      :join? false}))
