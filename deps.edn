@@ -1,9 +1,13 @@
 {:paths ["src/backend" "resources"]
 
- :deps {environ/environ {:mvn/version "1.2.0"}
+ :deps {org.clojure/clojure {:mvn/version "1.11.0-alpha2"}
+        com.github.seancorfield/next.jdbc      {:mvn/version "1.2.709"}
+        com.layerware/hugsql-adapter-next-jdbc {:mvn/version "0.5.1"}
+        com.layerware/hugsql-core {:mvn/version "0.5.1"}
         metosin/muuntaja {:mvn/version "0.6.8"}
-        metosin/reitit {:mvn/version "0.5.15"}
+        metosin/reitit   {:mvn/version "0.5.15"}
         metosin/ring-http-response {:mvn/version "0.9.3"}
+        org.postgresql/postgresql  {:mvn/version "42.2.23"}
         ring/ring {:mvn/version "1.9.4"}}
  
  :aliases {:uberjar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.297"}}

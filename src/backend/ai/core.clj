@@ -1,6 +1,5 @@
 (ns ai.core
   (:require [clojure.java.io :as io]
-            [environ.core :refer [env]]
             [muuntaja.middleware :as muuntaja]
             [reitit.ring :as ring]
             [ring.adapter.jetty :as jetty]
@@ -35,5 +34,5 @@
         wrap-nocache 
         wrap-formats
         wrap-reload) 
-    {:port (if (env :port) (Integer/parseInt (env :port)) 8910)
+    {:port (if (System/getenv "PORT") (Integer/parseInt (System/getenv "PORT")) 8910)
      :join? false}))

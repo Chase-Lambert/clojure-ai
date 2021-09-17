@@ -13,6 +13,5 @@
                 :modules {:main {:entries [ai.core]}}
                 :devtools {:after-load ai.core/main
                            :http-root "resources/public"
-                           :http-port 3000}
-                :release {:compiler-options {:optimizations :advanced}}}}}
+                           :http-port 3000}}}}
  
