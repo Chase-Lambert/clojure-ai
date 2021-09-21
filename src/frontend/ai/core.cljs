@@ -9,4 +9,3 @@
   (rdom/render 
     [app]
     (.getElementById js/document "app")))
-               
