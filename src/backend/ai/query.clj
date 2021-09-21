@@ -4,13 +4,12 @@
 
 (def api-key (System/getenv "OPEN_AI"))
 
-(defn create-prompt [prompt max-tokens]
-  (str "{\"prompt\": \"" prompt "\", \"max_tokens\": " max-tokens "}"))
-
 (defn request [prompt max-tokens]
-  (client/post "https://api.openai.com/v1/engines/davinci/completions" 
-               {:headers {"content-type" "application/json", "authorization" (str "Bearer " api-key)} 
-                :body (create-prompt prompt max-tokens)}))
+  (let [prompt (str "{\"prompt\": \"" prompt "\", \"max_tokens\": " max-tokens "}")]
+    (client/post "https://api.openai.com/v1/engines/davinci/completions" 
+                 {:headers {"content-type" "application/json", 
+                            "authorization" (str "Bearer " api-key)} 
+                  :body prompt})))
 
 (defn text [response]
   (-> response :body (json/read-str :key-fn keyword) :choices first :text))
@@ -21,6 +20,4 @@
   
   
   ,)
-
-
 
